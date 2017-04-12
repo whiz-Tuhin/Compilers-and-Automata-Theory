@@ -1,3 +1,12 @@
+/*
+lexp -> aterm | list
+aterm -> number | identifier
+list -> (lexp_seq)
+lexp_seq -> lexp A'
+A' -> lexp A' | E
+*/
+
+
 #include <iostream>
 #include <string.h>
 #include <stdlib.h>
@@ -45,7 +54,6 @@ void lexp(){
     current_token();
     if(strcmp(token,"(") == 0){
           list();
-          getNextToken();
     } else if(strcmp(token,"number") == 0 || strcmp(token,"identifier") == 0){
           aterm();
     }else{
@@ -56,10 +64,9 @@ void lexp(){
 void list(){
     cout<<"Inside list"<<endl;
     if(strcmp(token,"(") == 0){
-          current_token();
+          //current_token();
           getNextToken();
           lexpseq();
-          getNextToken();
           if(strcmp(token,")") == 0){
                 cout<<"final stuffs"<<endl;
                 getNextToken();
@@ -79,9 +86,9 @@ void list(){
 void aterm(){
       cout<<"Inside aterm"<<endl;
       if(strcmp(token,"number") == 0){
-              current_token();
+              getNextToken();
       } else if(strcmp(token,"identifier") == 0){
-              current_token();
+              getNextToken();
       } else{
           cout<<"Error"<<endl;
       }
@@ -90,7 +97,6 @@ void aterm(){
 void lexpseq(){
       cout<<"Inside lexpseq"<<endl;
       lexp();
-      getNextToken();
       lexpseq1();
 }
 
